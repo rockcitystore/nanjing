@@ -51,7 +51,7 @@ app.use((ctx, next)=> {//日志
     loger.info(`${ctx.method}\t${ctx.url}\t${ new Date() - start }\t${JSON.stringify(ctx.request.body)}\t${JSON.stringify(ctx.request.query)}\t${JSON.stringify(ctx.request.params)}`);
 })
     .use(convert(csrf())) //跨域
-    .use(convert(serve(path.join(__dirname + '/assets'))))//静态文件
+    .use(serve(path.join(__dirname + '/assets')))//静态文件
     .use(views(path.join(__dirname + '/assets/views'), {extension: 'ejs'}))//engine
     .use(router.routes())//路由
     .use(router.allowedMethods()) //允许方法
