@@ -1,0 +1,18 @@
+<html>
+<head>
+    <script src="../js/aframe.min.js"></script>
+    <script src="../js/aframe-extras.loaders.min.js"></script>
+</head>
+<body>
+<a-scene>
+    <a-assets>
+        <img id="lake" src="../img/stock-photo-124225201.jpg">
+        <a-asset-item id="myPlyModel" src="../model/ply/test.ply"></a-asset-item>
+    </a-assets>
+    <a-sky src="#lake"></a-sky>
+    <a-entity ply-model="src: #myPlyModel" rotation="-90 0 0"></a-entity>
+    <a-entity camera look-controls wasd-controls></a-entity>
+
+</a-scene>
+</body>
+</html>
