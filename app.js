@@ -46,8 +46,8 @@ app.keys = ['session key', 'csrf for dejidev'];
 
 app.use((ctx, next)=> {//日志
     const start = new Date();
-    next();
     loger.info(`${ctx.method}\t${ctx.url}\t${ new Date() - start }\t${JSON.stringify(ctx.request.body)}\t${JSON.stringify(ctx.request.query)}\t${JSON.stringify(ctx.request.params)}`);
+    next();
 })
     .use(convert(csrf())) //跨域
     .use(serve(path.join(__dirname + '/assets')))//静态文件
