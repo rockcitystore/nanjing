@@ -41,7 +41,6 @@ const bodyParser = require('koa-bodyparser');
 let server = http.createServer(app.callback()).listen(3000);
 loger.info(`nanjing listening on ${server._connectionKey} in ${ENV}`);
 
-app.name = "DejiBrandService";
 //session config for csrf //https://github.com/koajs/examples/blob/51b25ff27171ce88aa6c30a671068515225ad6e8/csrf/app.js
 app.keys = ['session key', 'csrf for dejidev'];
 
