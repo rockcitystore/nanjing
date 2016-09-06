@@ -7,14 +7,13 @@ const http = require('http');
 const Koa = require('koa');
 const app = new Koa();
 const ENV = process.env.NODE_DEV || app.env;
-const loger = require("./utils/loger").getLogger('brandService.js');
+const loger = require("./utils/loger").getLogger('app.js');
 const Router = require('koa-router');
 const router = new Router();
 const fs = require('fs');
 const csrf = require('koa-csrf');
 const convert = require('koa-convert');
 const session = require('koa-session')(null, app);
-const serve = require('koa-static');
 const views = require('koa-views');
 const path = require('path');
 const bodyParser = require('koa-bodyparser');
@@ -44,19 +43,21 @@ loger.info(`nanjing listening on ${server._connectionKey} in ${ENV}`);
 //session config for csrf //https://github.com/koajs/examples/blob/51b25ff27171ce88aa6c30a671068515225ad6e8/csrf/app.js
 app.keys = ['session key', 'csrf for dejidev'];
 
-app.use((ctx, next)=> {//日志
-    const start = new Date();
-    loger.info(`${ctx.method}\t${ctx.url}\t${ new Date() - start }\t${JSON.stringify(ctx.request.body)}\t${JSON.stringify(ctx.request.query)}\t${JSON.stringify(ctx.request.params)}`);
-    next();
-})
-    .use(convert(csrf())) //跨域
-    .use(serve(path.join(__dirname + '/assets')))//静态文件
+app
+    .use(convert(csrf())) //跨域  post 提示缺secret
     .use(views(path.join(__dirname + '/assets/views'), {extension: 'ejs'}))//engine
-    .use(router.routes())//路由
-    .use(router.allowedMethods()) //允许方法
+    .use(require('koa-static')(path.join(__dirname + '/assets')))
+    .use(router.routes(), router.allowedMethods())//路由
     .use(bodyParser())
+    .use((ctx, next)=> {//日志
+        const start = new Date();
+        loger.info(`${ctx.method}\t${ctx.url}\t${ new Date() - start }\t${JSON.stringify(ctx.request.body)}\t${JSON.stringify(ctx.request.query)}\t${JSON.stringify(ctx.request.params)}`);
+        next();
+    })
     .on('error', app.onerror)//错误处理
 ;
+
+
 //uncaughtException handler
 process.on('uncaughtException', function (err) {
     loger.error(err);

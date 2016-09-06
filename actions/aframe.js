@@ -8,16 +8,22 @@ const constant = require("../utils/constant.js");
 const loger = require("../utils/loger").getLogger('aframe');
 
 let obj =(ctx, next) =>{
-    loger.debug(111);
-     ctx.render('obj')
+    return ctx.render('obj')
+
 }
 
 let ply =(ctx, next) =>{
-    ctx.render('ply')
+    return ctx.render('ply');
+}
+
+let test =(ctx, next) =>{
+    return ctx.body = "postttttt"
 }
 
 
-module.exports = function (app,prefix) {
-    app.get(prefix + '/obj', obj)
-    app.get(prefix + '/ply', ply)
+module.exports = function (router,prefix) {
+    router.get(prefix + '/obj', obj);
+    router.get(prefix + '/ply', ply);
+    router.post(prefix + '/test', test);
+
 };
