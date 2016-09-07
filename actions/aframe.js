@@ -16,14 +16,9 @@ let ply =(ctx, next) =>{
     return ctx.render('ply');
 }
 
-let test =(ctx, next) =>{
-    return ctx.body = "postttttt"
-}
 
 
 module.exports = function (router,prefix) {
     router.get(prefix + '/obj', obj);
     router.get(prefix + '/ply', ply);
-    router.post(prefix + '/test', test);
-
 };

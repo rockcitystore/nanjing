@@ -67,12 +67,12 @@ process.on('uncaughtException', function (err) {
 
 
 //socket config
-// const io = require('socket.io')(server);
-// io.sockets.on('connection', function (socket) {
-//     loger.debug(socket.handshake.address + ' has connected');
-//     socket.emit('socket.io connection recevied', 'connection recevied');
-//     socket.on('disconnect', function () {
-//         loger.debug(socket.handshake.address + ' has disconnected');
-//     });
-// });
-// module.exports = io;
+const io = require('socket.io')(server);
+io.sockets.on('connection', function (socket) {
+    loger.debug(socket.handshake.address + ' has connected');
+    socket.emit('socket.io connection recevied', 'connection recevied');
+    socket.on('disconnect', function () {
+        loger.debug(socket.handshake.address + ' has disconnected');
+    });
+});
+module.exports = io;
