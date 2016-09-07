@@ -1,52 +1,90 @@
 <html>
 <head>
-    <script src="https://aframe.io/releases/0.3.0/aframe.min.js"></script>
-    <script src="https://rawgit.com/donmccurdy/aframe-extras/v2.1.1/dist/aframe-extras.loaders.min.js"></script>
+    <script src="../js/aframe.min.js"></script>
+    <script src="../js/aframe-extras.loaders.min.js"></script>
+    <script src="../js/aframe-entity-generator-component.js"></script>
+    <script src="../js/aframe-randomizer-components.js"></script>
+
+    <script>
+
+        AFRAME.registerComponent('cursor-listener', {
+            init: function () {
+                var COLORS = ['red', 'green', 'blue'];
+                this.el.addEventListener('click', function () {
+                    console.log(this);
+                    var randomIndex = Math.floor(Math.random() * COLORS.length);
+                    this.setAttribute('material', 'color', COLORS[randomIndex]);
+                });
+            }
+        });
+    </script>
 </head>
 <body>
-<a-scene stats>
-    <!--<a-assets>-->
-    <img id="sky" src="../img/stock-photo-26780689.jpg">
-    <!--</a-assets>-->
-    <a-plane rotation="-90 0 0" width="1000" height="1000" color="#D9D9D9"></a-plane>
+<a-scene stats fog="type: linear; color: #DDD; near:100;" id="scene">
+    <a-assets>
+        <!--<img id="sky" src="../img/stock-photo-26780689.jpg">-->
 
+        <a-mixin id="house_a" geometry="primitive: box;depth:3;height:3;width:3;">
+        <a-mixin id="house_b" geometry="primitive: box;depth:3;height:4;width:3;">
+        <a-mixin id="plaza_a" geometry="primitive: box;depth:15;height:60;width:15;">
+
+
+        <a-mixin id="random-2" random-position="min:0 0 0;max:100 0 100"></a-mixin>
+        <a-mixin id="random-1" random-position="min:0 30 0;max:100 30 100"></a-mixin>
+
+
+            <a-mixin id="red" material="color: #FF4B68"></a-mixin>
+        <a-mixin id="blue" material="color: #118DF0"></a-mixin>
+        <a-mixin id="yellow" material="color: #FBFFA3"></a-mixin>
+        <a-mixin id="grey" material="color: #d8d8d8"></a-mixin>
+
+    </a-assets>
+    <a-plane rotation="-90 0 0" width="10000" height="10000" color="#D9D9D9"></a-plane>
+    <!--<a-entity light="type: ambient; color: #fff9d1" position="10 10 0"></a-entity>-->
     <!--<a-sky src="#sky"></a-sky>-->
-    <a-entity obj-model="obj: url(../model/obj/building/3_3_3_a.obj); mtl: url(../model/obj/building/3_3_3_a.mtl)"
-              rotation="0 0 0" position="0 0 0"></a-entity>
-    <a-entity camera look-controls wasd-controls position="0 38 0">
-        <!--<a-entity cursor="fuse: true; fuseTimeout: 500"-->
-        <!--position="0 0 -1"-->
-        <!--geometry="primitive: ring"-->
-        <!--material="color: #D9D9D9; shader: flat">-->
+
+    <a-entity cursor-listener entity-generator="mixin: random-2 grey house_a;num: 500"></a-entity>
+    <a-entity cursor-listener entity-generator="mixin: random-2 blue house_b;num: 500"></a-entity>
+    <a-entity cursor-listener entity-generator="mixin: random-1 yellow plaza_a;num: 3"></a-entity>
+
+
+    <a-entity camera look-controls wasd-controls position="0 1.8 5">
         <a-cursor>
-            <a-animation begin="click" easing="ease-in" attribute="scale"
-                         fill="backwards" from="0.1 0.1 0.1" to="1 1 1"></a-animation>
         </a-cursor>
     </a-entity>
-    <a-entity obj-model="obj: url(../model/obj/building/3_3_3_b.obj); mtl: url(../model/obj/building/3_3_3_b.mtl)"
-              rotation="0 0 0" position="10 0 0">
-    </a-entity>
-    <a-entity
-            obj-model="obj: url(../model/obj/building/21_21_21_castle.obj); mtl: url(../model/obj/building/21_21_21_castle.mtl)"
-            rotation="0 0 0" position="100 0 0">
 
-    </a-entity>
 
+
+    <!--<a-entity cursor-listener-->
+              <!--obj-model="obj: url(../model/obj/building/3_3_3_a.obj); mtl: url(../model/obj/building/3_3_3_a.mtl)"-->
+               <!--position="0 0 0"></a-entity>-->
+    <!--<a-entity cursor-listener-->
+              <!--obj-model="obj: url(../model/obj/building/3_3_3_b.obj); mtl: url(../model/obj/building/3_3_3_b.mtl)"-->
+               <!--position="10 0 0">-->
+    <!--</a-entity>-->
+    <!--<a-entity cursor-listener-->
+              <!--obj-model="obj: url(../model/obj/building/3_3_3_a.obj); mtl: url(../model/obj/building/3_3_3_a.mtl)"-->
+              <!--position="15 0 0"></a-entity>-->
+    <!--<a-entity cursor-listener-->
+              <!--obj-model="obj: url(../model/obj/building/3_3_3_a.obj); mtl: url(../model/obj/building/3_3_3_a.mtl)"-->
+              <!--position="20 0 0"></a-entity>-->
+    <!--<a-entity cursor-listener geometry="primitive: box;depth:3;height:3;width:3;" material="color: #d8d8d8" position="25 0 0"></a-entity>-->
+    <!--<a-entity cursor-listener geometry="primitive: box;depth:3;height:4;width:3;" material="color: #d8d8d8" position="30 0 0"></a-entity>-->
+    <!--<a-entity cursor-listener-->
+              <!--obj-model="obj: url(../model/obj/building/16_16_60_a.obj); mtl: url(../model/obj/building/16_16_60_a.mtl)"-->
+               <!--position="100 0 0">-->
+    <!--</a-entity>-->
+    <!--<a-entity cursor-listener-->
+              <!--obj-model="obj: url(../model/obj/building/16_16_60_a.obj); mtl: url(../model/obj/building/16_16_60_a.mtl)"-->
+              <!--position="500 0 0">-->
+    <!--</a-entity>-->
+    <!--<a-entity cursor-listener-->
+              <!--obj-model="obj: url(../model/obj/building/16_16_60_a.obj); mtl: url(../model/obj/building/16_16_60_a.mtl)"-->
+              <!--position="1000 0 0">-->
+    <!--</a-entity>-->
 
 </a-scene>
 
-<script>
-    // Component to change to random color on click.
-    AFRAME.registerComponent('click-color-change', {
-        init: function () {
-            var COLORS = ['red', 'green', 'blue'];
-            this.el.addEventListener('click', function () {
-                var randomIndex = Math.floor(Math.random() * COLORS.length);
-                this.setAttribute('material', 'color', COLORS[randomIndex]);
-                console.log('I was clicked!');
-            });
-        }
-    });
-</script>
+
 </body>
 </html>
