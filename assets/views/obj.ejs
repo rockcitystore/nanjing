@@ -26,11 +26,11 @@
 
         <a-mixin id="house_a" geometry="primitive: box;depth:3;height:3;width:3;">
         <a-mixin id="house_b" geometry="primitive: box;depth:3;height:4;width:3;">
-        <a-mixin id="plaza_a" geometry="primitive: box;depth:15;height:60;width:15;">
+        <a-mixin id="plaza_a" geometry="primitive: box;depth:10;height:40;width:10;">
 
 
         <a-mixin id="random-2" random-position="min:0 0 0;max:100 0 100"></a-mixin>
-        <a-mixin id="random-1" random-position="min:0 30 0;max:100 30 100"></a-mixin>
+        <a-mixin id="random-1" random-position="min:10 10 10;max:50 10 50"></a-mixin>
 
 
             <a-mixin id="red" material="color: #FF4B68"></a-mixin>
@@ -48,7 +48,7 @@
     <a-entity cursor-listener entity-generator="mixin: random-1 yellow plaza_a;num: 3"></a-entity>
 
 
-    <a-entity camera look-controls wasd-controls position="0 1.8 5">
+    <a-entity camera look-controls wasd-controls="acceleration:100;easing:40;fly:true" position="0 1.8 5">
         <a-cursor>
         </a-cursor>
     </a-entity>
